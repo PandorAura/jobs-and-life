@@ -48,7 +48,6 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-<<<<<<< HEAD
     public function incomes()
     {
         return $this->hasMany(\App\Models\Income::class);
@@ -68,7 +67,4 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(\App\Models\Allocation::class);
     }
-=======
-    public function canAccessPanel(Panel $panel): bool{    return true;}
->>>>>>> main
 }
