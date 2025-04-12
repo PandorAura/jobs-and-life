@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('incomes', function (Blueprint $table) {
+        Schema::create('goals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->decimal('amount', 12, 2);
-            //$table->string('month'); // you can make this a DATE or string like "April 2025"
-            $table->string('description')->nullable();
+            $table->string('name');
+            $table->decimal('value', 12, 2);
+            $table->enum('type', ['short_term', 'long_term']);
+            $table->date('target_date')->nullable();
+            $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('incomes');
+        Schema::dropIfExists('goals');
     }
 };
