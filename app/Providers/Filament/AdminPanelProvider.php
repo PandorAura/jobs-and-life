@@ -24,7 +24,9 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->id('admin')
-            ->path('admin')->default()->login()
+            ->path('admin')
+            ->default()
+            ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -37,6 +39,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
+                \App\Filament\Admin\Widgets\MonthlyChallenge::class, // Your widget
             ])
             ->middleware([
                 EncryptCookies::class,
