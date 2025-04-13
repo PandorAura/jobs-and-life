@@ -6,6 +6,7 @@ use App\Filament\Admin\Resources\GoalResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
+
 class EditGoal extends EditRecord
 {
     protected static string $resource = GoalResource::class;
