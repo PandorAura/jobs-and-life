@@ -166,4 +166,11 @@ class GoalResource extends Resource
             'edit' => Pages\EditGoal::route('/{record}/edit'),
         ];
     }
+
+    public static function mutateFormDataBeforeCreate(array $data): array
+    {
+        Log::info('Creating goal for user: ' . auth()->id());
+        $data['user_id'] = auth()->id();
+        return $data;
+    }
 }
