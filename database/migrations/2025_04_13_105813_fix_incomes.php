@@ -12,9 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('incomes', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            if(!Schema::hasColumn('user_id', 'incomes')) {
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            }
+            
             $table->decimal('amount', 12, 2);
-            //$table->string('month'); // you can make this a DATE or string like "April 2025"
+            $table->string('month'); // you can make this a DATE or string like "April 2025"
             $table->string('description')->nullable();
         });
     }
