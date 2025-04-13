@@ -7,6 +7,7 @@ use App\Filament\Admin\Widgets\AllocationPieChart;
 use App\Services\ChatGptService;
 use Illuminate\Support\Str;
 
+use App\Filament\Admin\Widgets\MonthlyChallenge;
 class Dashboard extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
@@ -16,6 +17,7 @@ class Dashboard extends Page
     public function getHeaderWidgets(): array
     {
         return [
+            MonthlyChallenge::class,
             AllocationPieChart::class,
         ];
     }
