@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('incomes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('incomes', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->decimal('amount', 12, 2);
+            //$table->string('month'); // you can make this a DATE or string like "April 2025"
+            $table->string('description')->nullable();
         });
     }
 
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('incomes');
+        //
     }
 };
