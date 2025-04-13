@@ -19,6 +19,8 @@ use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Select;
 use App\Models\User;
+use Filament\Forms\Components\Hidden;
+
 
 
 
@@ -31,22 +33,21 @@ class GroupResource extends Resource
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
-            ->schema([
-                TextInput::make('name')
-                    ->label('Group Name')
-                    ->required()
-                    ->maxLength(255),
+        ->schema([
+            TextInput::make('name')
+                ->label('Group Name')
+                ->required()
+                ->maxLength(255),
 
-                    Select::make('users')  // `users` is the relationship method from the Group model
-                    ->label('Assign Users to Group')
-                    ->multiple()  // Allow selecting multiple users
-                    ->options(User::all()->pluck('name', 'id')) // List all users (you can customize this as needed)
-                    ->searchable() // Allow searching for users
-                    ->required(), // Optionally, make this required
+            Select::make('users')
+                ->label('Assign Users to Group')
+                ->relationship('users', 'name')  // 👈 this enables automatic pivot table saving
+                ->multiple()
+                ->searchable(),
 
-                    Forms\Components\Hidden::make('created_by')
-                    ->default(auth()->id()), // Automatically assigns the user creating the group
-            ]);
+            Hidden::make('created_by')
+                ->default(auth()->id()),
+        ]);
     }
 
    // Define the table for displaying the groups
@@ -64,7 +65,7 @@ class GroupResource extends Resource
                    ->sortable()
                    ->searchable(),
 
-                   TextColumn::make('users.name')
+                   TextColumn::make('users')
                     ->label('Users in Group')
                     ->sortable()
                     ->getStateUsing(fn (Group $record) => $record->users->pluck('name')->join(', ')),
@@ -95,4 +96,13 @@ class GroupResource extends Resource
             'edit' => Pages\EditGroup::route('/{record}/edit'),
         ];
     }
+    protected function getHeaderActions(): array
+{
+    return [
+        Action::make('viewGoals')
+            ->label('View Goals')
+            ->url(fn () => GroupGoalResource::getUrl('index', ['group_id' => $this->record->id]))
+            ->color('primary'),
+    ];
+}
 }

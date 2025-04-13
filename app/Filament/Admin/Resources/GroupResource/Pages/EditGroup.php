@@ -3,7 +3,9 @@
 namespace App\Filament\Admin\Resources\GroupResource\Pages;
 
 use App\Filament\Admin\Resources\GroupResource;
-use Filament\Actions;
+use App\Filament\Admin\Resources\GroupGoalResource;
+
+use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 
 class EditGroup extends EditRecord
@@ -12,8 +14,19 @@ class EditGroup extends EditRecord
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\DeleteAction::make(),
+        // Get the default actions (e.g., Delete, Save)
+        $defaultActions = parent::getHeaderActions();
+        
+        // Add your custom "View Goals" button
+        $customActions = [
+            Action::make('viewGoals')
+                ->label('View Goals')
+                ->url(fn () => GroupGoalResource::getUrl('index', ['group_id' => $this->record->id]))
+                ->color('primary')
+                ->icon('heroicon-o-arrow-right'),
         ];
+        
+        // Merge both arrays
+        return array_merge($defaultActions, $customActions);
     }
 }

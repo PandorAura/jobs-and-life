@@ -12,6 +12,10 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+
+
 
 class GroupGoalContributionResource extends Resource
 {
@@ -25,31 +29,45 @@ class GroupGoalContributionResource extends Resource
         return false;
     }
     public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-            ]);
-    }
+{
+    return $form
+        ->schema([
+            Select::make('group_goal_id')
+                ->label('Goal')
+                ->relationship('groupGoal', 'title')
+                ->required(),
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                //
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
+            Select::make('user_id')
+                ->label('User')
+                ->relationship('user', 'name')
+                ->required(),
+
+            TextInput::make('amount')
+                ->numeric()
+                ->required()
+                ->label('Contribution Amount'),
+        ]);
+}
+
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
+            TextColumn::make('user.name')->label('User'),
+            TextColumn::make('groupGoal.title')->label('Goal'),
+            TextColumn::make('amount')->money('eur'),
+            TextColumn::make('created_at')->dateTime(),
+        ])
+        ->filters([
+            SelectFilter::make('group_goal_id')
+                ->label('Group Goal')
+                ->relationship('groupGoal', 'title'), // make sure `groupGoal()` exists in the model
+        ])
+        ->actions([
+            Tables\Actions\EditAction::make(),
+            Tables\Actions\DeleteAction::make(),
+        ]);
+}
 
     public static function getRelations(): array
     {
