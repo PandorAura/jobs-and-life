@@ -18,13 +18,17 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
+//use App\Filament\Widgets\AllocationPieChart;
+
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
             ->id('admin')
-            ->path('admin')->default()->login()
+            ->path('admin')
+            ->default()
+            ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -37,6 +41,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
+                \App\Filament\Admin\Widgets\MonthlyChallenge::class, // Your widget
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -52,5 +57,8 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+            // ->widgets([
+            //     AllocationPieChart::class,
+            // ]);
     }
 }
