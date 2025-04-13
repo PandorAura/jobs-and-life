@@ -3,7 +3,7 @@
 namespace App\Filament\Admin\Pages;
 
 use Filament\Pages\Page;
-use App\Filament\Widgets\AllocationPieChart;
+use App\Filament\Admin\Widgets\AllocationPieChart;
 
 class Dashboard extends Page
 {
