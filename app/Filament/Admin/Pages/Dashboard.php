@@ -4,7 +4,7 @@ namespace App\Filament\Admin\Pages;
 
 use Filament\Pages\Page;
 use App\Filament\Admin\Widgets\AllocationPieChart;
-
+use App\Filament\Admin\Widgets\MonthlyChallenge;
 class Dashboard extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
@@ -14,6 +14,7 @@ class Dashboard extends Page
     public function getHeaderWidgets(): array
     {
         return [
+            MonthlyChallenge::class,
             AllocationPieChart::class,
         ];
     }

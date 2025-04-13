@@ -10,6 +10,7 @@ use App\Models\Challenge;
 
 class MonthlyChallenge extends BaseWidget
 {
+    
     protected function getStats(): array
     {
         $currentMonth = now()->month;
