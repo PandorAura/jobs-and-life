@@ -6,22 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('incomes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('goals', function (Blueprint $table) {
+            $table->decimal('raised_so_far', 12, 2)->default(0)->after('value');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('incomes');
+        Schema::table('goals', function (Blueprint $table) {
+            $table->dropColumn('raised_so_far');
+        });
     }
 };
