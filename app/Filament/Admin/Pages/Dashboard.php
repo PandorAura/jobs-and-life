@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Pages;
 use Filament\Pages\Page;
 use App\Filament\Admin\Widgets\AllocationPieChart;
 use App\Filament\Admin\Widgets\BudgetOverview;
+use App\Filament\Admin\Widgets\GoalsOverviewWidget;
 
 class Dashboard extends Page
 {
@@ -17,6 +18,7 @@ class Dashboard extends Page
         return [
             AllocationPieChart::class,
             BudgetOverview::class,
+            GoalsOverviewWidget::class,
         ];
     }
 }
