@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Pages;
 
 use Filament\Pages\Page;
+use Filament\Widgets\AccountWidget;
 use App\Filament\Admin\Widgets\AllocationPieChart;
 use App\Filament\Admin\Widgets\BudgetOverview;
 use App\Filament\Admin\Widgets\GoalsOverviewWidget;
@@ -19,6 +20,7 @@ class Dashboard extends Page
     public function getHeaderWidgets(): array
     {
         return [
+            AccountWidget::class,
             MonthlyChallenge::class,
             AllocationPieChart::class,
             BudgetOverview::class,

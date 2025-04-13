@@ -10,7 +10,7 @@ use App\Models\Challenge;
 
 class MonthlyChallenge extends BaseWidget
 {
-    
+    protected int | string | array $columnSpan = 'full'; // Takes full width
     protected function getStats(): array
     {
         $currentMonth = now()->month;
