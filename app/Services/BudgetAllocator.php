@@ -33,7 +33,7 @@ class BudgetAllocator
         ];
     }
 
-    public static function getWholeFreeBudget(User $user): array
+    public static function getWholeFreeBudget(User $user)
     {
         $totalIncome = $user->incomes()->sum('amount');
         $totalSpending = $user->mandatorySpendings()->sum('amount');
