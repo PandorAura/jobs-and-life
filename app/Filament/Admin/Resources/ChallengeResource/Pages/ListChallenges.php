@@ -3,6 +3,9 @@
 namespace App\Filament\Admin\Resources\ChallengeResource\Pages;
 
 use App\Filament\Admin\Resources\ChallengeResource;
+use Illuminate\Database\Eloquent\Builder;
+
+
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -15,5 +18,13 @@ class ListChallenges extends ListRecords
         return [
             Actions\CreateAction::make(),
         ];
+    }
+
+    protected function getTableQuery(): Builder
+    {
+        $currentMonth = now()->month;
+
+        return parent::getTableQuery()
+            ->where('month', '<', $currentMonth);
     }
 }
